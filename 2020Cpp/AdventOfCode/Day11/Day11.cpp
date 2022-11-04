@@ -1,6 +1,3 @@
-// Day11.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -15,20 +12,6 @@ std::vector<std::string> readFile(const std::string& i_path) {
   return seats;
 }
 
-//size_t countNear(const std::vector<std::string>& i_inSeats, const long long& r, const long long& c ) {
-//  size_t occupied = 0;
-//  for (long long ir = std::max<long long>(0, r-1); ir <= std::min<long long>(i_inSeats.size() - 1, r+1); ir++) {
-//    for (long long ic = std::max<long long>(0, c-1); ic <= std::min<long long>(i_inSeats.front().size() - 1, c+1); ic++){
-//      if (ic == c && ir == r) {
-//        continue;
-//      }
-//      if (i_inSeats[ir][ic] == '#') {
-//        occupied++;
-//      }
-//    }
-//  }
-//  return occupied;
-//}
 size_t countNear(const std::vector<std::string>& i_inSeats, const long long& r, const long long& c) {
   size_t occupied = 0;
   auto inBorder = [&i_inSeats](const long long r, const long long c) -> bool {
@@ -39,8 +22,7 @@ size_t countNear(const std::vector<std::string>& i_inSeats, const long long& r, 
       if (cStep == 0 && rStep == 0) {
         continue;
       }
-      long long ir = r;
-      long long ic = c;
+      long long ir(r),ic(c);
       ir += rStep;
       ic += cStep;
       if (inBorder(ir, ic)) {
@@ -63,8 +45,7 @@ size_t countFar(const std::vector<std::string>& i_inSeats, const long long& r, c
       if (cStep == 0 && rStep == 0) {
         continue;
       }
-      long long ir = r;
-      long long ic = c;
+      long long ir(r), ic(c);
       while (true) {
         ir += rStep;
         ic += cStep;
@@ -127,10 +108,8 @@ size_t result2(std::vector<std::string> i_inSeats) {
 int main()
 {
   std::vector<std::string> seats = readFile(R"(.\Input\PartAB.txt)");
-  //std::vector<std::string> seats = readFile(R"(.\Input\TestA.txt)");
   std::cout << std::endl << "Result 1: " << result1(seats);
   std::cout << std::endl << "Result 2: " << result2(seats);
-
   return 0;
 }
 
