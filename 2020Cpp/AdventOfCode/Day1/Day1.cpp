@@ -10,7 +10,11 @@
 #include <sstream>
 #include <vector>
 
-#include "NobisTools.h" 
+std::vector<int> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<int> vecCoin((std::istream_iterator<int>(f)), (std::istream_iterator<int>()));
+  return vecCoin;
+}
 
 /*******************************************
 * star1
@@ -51,22 +55,10 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, int& o_p) {
-    o_p = stoi(i_str);
-  };
-
-  vector<int> vecCoin;
-  if (nobistools::readAndSplitAllLines<int>(R"(.\Input\PartAB.txt)", vecCoin, lambda)) {
-    cout << endl << "----------------------------------------";
-    cout << endl << "Result star1: " << star1(vecCoin);
-    cout << endl << "Result star2: " << star2(vecCoin);
-    cout << endl << "----------------------------------------";
-  }
-  else {
-    cout << endl << "Error: Something went wrong!";
-    return 1;
-  }
-
+  vector<int> vecCoin = readFile(R"(.\Input\PartAB.txt)");
+  cout << endl << "Result star1: " << star1(vecCoin);
+  cout << endl << "Result star2: " << star2(vecCoin);
+ 
   return 0;
 }
 

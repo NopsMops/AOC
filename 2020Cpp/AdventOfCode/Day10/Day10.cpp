@@ -12,8 +12,12 @@
 #include <set>
 #include <algorithm>
 
-#include "NobisTools.h" 
 
+std::vector<int> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<int> adaps((std::istream_iterator<int>(f)), (std::istream_iterator<int>()));
+  return adaps;
+}
 
 /*******************************************
 * star1
@@ -64,12 +68,7 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, int& o_p) {
-    o_p = stoi(i_str);
-  };
-
-  vector<int> vecAdap;
-  nobistools::readAndSplitAllLines<int>(R"(.\Input\PartAB.txt)", vecAdap, lambda);
+  vector<int> vecAdap = readFile(R"(.\Input\PartAB.txt)");
   cout << endl << "----------------------------------------";
   cout << endl << "Result star1: " << star1(vecAdap);
   cout << endl << "Result star2: " << star2(vecAdap);

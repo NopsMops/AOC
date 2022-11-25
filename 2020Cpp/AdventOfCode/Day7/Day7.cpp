@@ -10,7 +10,12 @@
 #include <regex>
 #include <tuple>
 
-#include "NobisTools.h" 
+
+std::vector<std::string> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<std::string> linesV((std::istream_iterator<std::string>(f)), (std::istream_iterator<std::string>()));
+  return linesV;
+}
 
 /*********
 * star1
@@ -82,13 +87,9 @@ unsigned star2(const std::vector<std::string>& i_linesV)
 int main()
 {
   using namespace std;
-  auto lambda = [](const string& i_str, string& o_str) {
-    o_str = i_str;
-  };
-
-  vector<string> linesV;
+  
+  vector<string> linesV = readFile(R"(.\Input\PartAB.txt)");
   set<string> colorBagsForGold;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", linesV, lambda);
   star1("shiny gold", linesV, colorBagsForGold);
   
   cout << endl << "----------------------------------------";

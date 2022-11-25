@@ -9,7 +9,12 @@
 #include <vector>
 #include <regex>
 
-#include "NobisTools.h" 
+
+std::vector<std::string> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<std::string> vecX((std::istream_iterator<std::string>(f)), (std::istream_iterator<std::string>()));
+  return vecX;
+}
 
 /*********
 * star (part A and B)
@@ -36,13 +41,7 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, string& o_str) {
-    o_str = i_str;
-  };
-
-  vector<string> vecX;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", vecX, lambda);
-
+  vector<string> vecX  = readFile(R"(.\Input\PartAB.txt)");
   cout << endl << "----------------------------------------";
   cout << endl << "Result star1: " << star(vecX, 3, 1);
   cout << endl << "Result star2: " << static_cast<long long>(star(vecX, 1, 1)) * star(vecX, 3, 1) * star(vecX, 5, 1) * star(vecX, 7, 1) * star(vecX, 1, 2);

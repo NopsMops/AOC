@@ -10,7 +10,11 @@
 #include <regex>
 #include <cmath>
 
-#include "NobisTools.h" 
+std::vector<std::string> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<std::string> vecL((std::istream_iterator<std::string>(f)), (std::istream_iterator<std::string>()));
+  return vecL;
+}
 
 /*********
 * star2
@@ -59,14 +63,9 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, string& o_str) {
-    o_str = i_str;
-  };
-
-  vector<string> vecL;
+  vector<string> vecL = readFile(R"(.\Input\PartAB.txt)");
   vector<unsigned> seatsV;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", vecL, lambda);
-
+ 
   unsigned res1 = star1(vecL, seatsV);
   unsigned res2 = star2(seatsV);
 

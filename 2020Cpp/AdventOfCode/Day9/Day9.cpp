@@ -12,13 +12,17 @@
 #include <set>
 #include <algorithm>
 
-#include "NobisTools.h" 
 
+std::vector<long long> readFile(const std::string& i_path) {
+  std::ifstream f(i_path);
+  std::vector<long long> codeV((std::istream_iterator<long long>(f)), (std::istream_iterator<long long>()));
+  return codeV;
+}
 
 /*******************************************
 * star1
 */
-unsigned long star1(const std::vector<unsigned long long>& i_codeV)
+unsigned long star1(const std::vector<long long>& i_codeV)
 {
   using namespace std;
   for (auto it = i_codeV.begin() + 25; it != i_codeV.end(); it++) {
@@ -39,7 +43,7 @@ unsigned long star1(const std::vector<unsigned long long>& i_codeV)
 /*******************************************
 * star2
 */
-unsigned long star2(const std::vector<unsigned long long>& i_codeV, const unsigned long long& i_goal)
+unsigned long star2(const std::vector<long long>& i_codeV, const unsigned long long& i_goal)
 {
   using namespace std;
   for (auto it = i_codeV.begin(); it != i_codeV.end(); it++) { 
@@ -65,13 +69,8 @@ int main()
 {
   using namespace std;
 
-  vector<unsigned long long > codeV;
-  auto lambda = [](const string& i_str, unsigned long long& o_p) {
-    o_p = stoull(i_str);
-  };
+  vector<long long > codeV = readFile(R"(.\Input\PartAB.txt)");
 
-  vector<int> vecCoin;
-  nobistools::readAndSplitAllLines<unsigned long long >(R"(.\Input\PartAB.txt)", codeV, lambda);
   unsigned long long res1 = star1(codeV);
   cout << endl << "----------------------------------------";
   cout << endl << "Result star1: " << res1;
