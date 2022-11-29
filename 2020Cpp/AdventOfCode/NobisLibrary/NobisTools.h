@@ -12,6 +12,8 @@
 
 namespace nobistools {
 
+  void NOBISLIBRARY_API split(const std::string& str, const std::string& splitter, std::vector<std::string>& v);
+
   // lambda:  void f(std::function< string(string) >& lambda);  or as template
   template<typename T, typename Functor>
   bool readAndSplitAllLines(const std::string& i_path, std::vector<T>& o_vecStr, Functor i_func)
@@ -61,6 +63,8 @@ namespace nobistools {
     in.close();
     return true;
   }
+  
+
   template <typename T, int MaxLen, typename V = std::deque<T>>
   class FixedQueue : public std::queue<T, V> {
   public:
@@ -71,8 +75,6 @@ namespace nobistools {
       std::queue<T, V>::push(value);
     }
   };
-
-  void NOBISLIBRARY_API printResult(void);
 
 
 }
