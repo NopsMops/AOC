@@ -11,25 +11,31 @@
 
 #include "NobisTools.h" 
 
-int result1(const std::string& i_time, const std::vector<std::string>& i_bus) {
-  return 0;
-}
-
-int result2(const std::string& i_time, const std::vector<std::string>& i_bus) {
-  return 0;
+std::vector<long long> sumUpCalorie(const std::vector<std::string> i_calV) {
+  std::vector<long long> vec{ 0 };
+  for (const auto i : i_calV) {
+    if (!i.empty()) {
+      vec.back() += std::stol(i);
+    }
+    else {
+      vec.push_back(0);
+    }
+  }
+  return vec;
 }
 
 int main()
 {
   using namespace std;
-  ifstream in(R"(.\Input\PartAB.txt)");
-  string line1, line2;
-  getline(in, line1);
-  getline(in, line2);
-  std::vector<std::string> strSpl;
-  nobistools::split(line2, "- :", strSpl);
 
-  cout << endl << "Result1: " << result1(line1, strSpl);
-  cout << endl << "Result2: " << result2(line1, strSpl);
-
+  auto lambda = [](const string& i_str, string& o_p) {
+    o_p = i_str;
+  };
+  vector<string> calV;
+  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", calV, lambda);
+  vector<long long> vec = sumUpCalorie(calV);
+  sort(vec.rbegin(), vec.rend());
+  cout << endl << "Result1: " << vec.front();
+  cout << endl << "Result2: " << vec.at(0) + vec.at(1) + vec.at(2);
+  
 }
