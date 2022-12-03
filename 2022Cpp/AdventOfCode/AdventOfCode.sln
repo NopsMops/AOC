@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NobisLibrary", "NobisLibrar
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day2", "Day2\Day2.vcxproj", "{62AA6EB3-DDF6-41F5-9197-948DC61265BF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day3", "Day3\Day3.vcxproj", "{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,6 +46,14 @@ Global
 		{62AA6EB3-DDF6-41F5-9197-948DC61265BF}.Release|x64.Build.0 = Release|x64
 		{62AA6EB3-DDF6-41F5-9197-948DC61265BF}.Release|x86.ActiveCfg = Release|Win32
 		{62AA6EB3-DDF6-41F5-9197-948DC61265BF}.Release|x86.Build.0 = Release|Win32
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Debug|x64.ActiveCfg = Debug|x64
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Debug|x64.Build.0 = Debug|x64
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Debug|x86.ActiveCfg = Debug|Win32
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Debug|x86.Build.0 = Debug|Win32
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Release|x64.ActiveCfg = Release|x64
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Release|x64.Build.0 = Release|x64
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Release|x86.ActiveCfg = Release|Win32
+		{74BA0F25-5B1E-4CC1-9C42-EA3C81DE6F4E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
