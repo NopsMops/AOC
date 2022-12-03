@@ -10,8 +10,8 @@
 
 std::vector<std::string> readFile(const std::string& i_path) {
   std::ifstream f(i_path);
-  std::vector<std::string> seats((std::istream_iterator<std::string>(f)), (std::istream_iterator<std::string>()));
-  return seats;
+  std::vector<std::string> lines((std::istream_iterator<std::string>(f)), (std::istream_iterator<std::string>()));
+  return lines;
 }
 
 int prio(int charval) {
