@@ -7,30 +7,27 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <regex>
-#include <cassert>
-#include <map>
-#include <list>
+
 #include "NobisTools.h" 
 
 std::vector<std::vector<char>> buildCraneList(std::vector<std::string>& ccV) {
-  auto it = ccV.begin();
-  for (; it != ccV.end(); it++) {
-    if ((*it).empty()) break;  
-  }
-  int indexSplit = std::distance(ccV.begin(), it);
-
   std::vector<std::vector<char>> craneStack(ccV[0].size());
-  for (int n = indexSplit - 2; n >= 0; n--) {
+
+  for (int n = 0; n < ccV.size(); n++) {
+    if (ccV[n].empty()) break;
     for (int i = 0; i < ccV[n].size(); i++) {
-      if ( static_cast<int>(ccV[n][i]) >= static_cast<int>('A') && static_cast<int>(ccV[n][i]) <= static_cast<int>('Z')) {
+      if (static_cast<int>(ccV[n][i]) >= static_cast<int>('A') && static_cast<int>(ccV[n][i]) <= static_cast<int>('Z')) {
         craneStack[i].push_back(ccV[n][i]);
       }
     }
   }
+
   for (int n = craneStack.size() - 1; n >= 0; n--) {
     if (craneStack[n].empty()) {
       craneStack.erase(craneStack.begin() + n);
+    }
+    else {
+      std::reverse(craneStack[n].begin(), craneStack[n].end());
     }
   }
   return craneStack;
