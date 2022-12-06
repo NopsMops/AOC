@@ -13,44 +13,25 @@
 #include <list>
 #include "NobisTools.h" 
 
-int findEmptyLine(const std::vector<std::string>& ccV) {
-  int i = 0;
-  std::vector<std::vector<char>> craneStack;
-  for (i = 0; i < ccV.size(); i++) 
-    if (ccV[i].empty())
-      break;
-  return i;
-}
+std::vector<std::vector<char>> buildCraneList(std::vector<std::string>& ccV) {
+  auto it = ccV.begin();
+  for (; it != ccV.end(); it++) {
+    if ((*it).empty()) break;  
+  }
+  int indexSplit = std::distance(ccV.begin(), it);
 
-std::vector<int> getStackPos(const std::vector<std::string>& ccV) {
-  int indexSplit = findEmptyLine(ccV);
-
-  size_t start = 0, pos;
-  std::string splitter = "123456789";
-  std::vector<int> stackPos;
-  do {
-    pos = ccV[indexSplit - 1].find_first_of(splitter, start);
-    if (pos == std::string::npos) break;
-    stackPos.push_back(pos);
-    start = pos + 1;
-  } while (true);
-  return stackPos;
-}
-
-std::vector<std::vector<char>> buildCraneList(const std::vector<std::string>& ccV) { 
-  int indexSplit = findEmptyLine(ccV);
-  std::vector<int> stackPos = getStackPos(ccV);
-  std::vector<std::vector<char>> craneStack;
-
-  for (auto i : stackPos) {
-    std::vector<char> tmp;
-    for (int n = indexSplit - 2; n >= 0; n--) {
-      char cr = ccV[n][i];
-      if (cr != ' ') {
-        tmp.push_back(cr);
+  std::vector<std::vector<char>> craneStack(ccV[0].size());
+  for (int n = indexSplit - 2; n >= 0; n--) {
+    for (int i = 0; i < ccV[n].size(); i++) {
+      if ( static_cast<int>(ccV[n][i]) >= static_cast<int>('A') && static_cast<int>(ccV[n][i]) <= static_cast<int>('Z')) {
+        craneStack[i].push_back(ccV[n][i]);
       }
     }
-    craneStack.push_back(tmp);
+  }
+  for (int n = craneStack.size() - 1; n >= 0; n--) {
+    if (craneStack[n].empty()) {
+      craneStack.erase(craneStack.begin() + n);
+    }
   }
   return craneStack;
 }
@@ -71,22 +52,22 @@ void moveBlockCrane(std::vector<std::vector<char>>& craneList, int i_mo, int i_f
   craneList[fr].erase(craneList[fr].begin() + start, craneList[fr].end());
 }
 
-std::vector<std::vector<char>>  moveAllCrane(const std::vector<std::string>& ccV, void(*move)(std::vector<std::vector<char>>& , int , int , int )) {
+std::vector<std::vector<char>>  moveAllCrane(std::vector<std::string>& ccV, void(*move)(std::vector<std::vector<char>>&, int, int, int)) {
   std::vector<std::vector<char>> craneList = buildCraneList(ccV);
-  int indexSplit = findEmptyLine(ccV);
-  for (int i = indexSplit + 1; i < ccV.size(); i++)
+  int mo, fr, to;
+  std::string tmp;
+  for (int i = 0; i < ccV.size(); i++)
   {
-    std::vector<std::string> v;
-    nobistools::split(ccV[i], " ", v);
-    int mo = std::stoi(v[1]);
-    int fr = std::stoi(v[3]);
-    int to = std::stoi(v[5]);
-    move(craneList, mo, fr, to);
+    std::stringstream ss(ccV[i]);
+    ss >> tmp >> mo >> tmp >> fr >> tmp >> to ;
+    if (tmp == "to") {
+      move(craneList, mo, fr, to);
+    }
   }
   return craneList;
 }
 
-std::string result1(const std::vector<std::string>& ccV) {
+std::string result1(std::vector<std::string>& ccV) {
   std::string key;
   std::vector<std::vector<char>> craneList = moveAllCrane(ccV, moveSingleCrane);
   for (auto i : craneList) {
@@ -94,7 +75,7 @@ std::string result1(const std::vector<std::string>& ccV) {
   }
   return key;
 }
-std::string result2(const std::vector<std::string>& ccV) {
+std::string result2(std::vector<std::string>& ccV) {
   std::string key;
   std::vector<std::vector<char>> craneList = moveAllCrane(ccV, moveBlockCrane);
   for (auto i : craneList) {
