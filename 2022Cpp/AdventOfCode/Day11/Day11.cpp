@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <vector>
 #include <algorithm>
 #include <regex>
-#include "NobisTools.h"
 
 struct Monkey {
   long inspected = 0;

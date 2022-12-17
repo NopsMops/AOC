@@ -8,8 +8,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
-
-#include "NobisTools.h" 
+#include <algorithm>
 
 struct knot {
   std::string ppath, name;
@@ -114,11 +113,11 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
   vector<string> lines;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", lines, lambda);
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
+
   buildTree(lines);
 
   cout << endl << "Result1: " << result1();

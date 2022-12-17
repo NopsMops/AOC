@@ -7,9 +7,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 #include <map>
-
-#include "NobisTools.h" 
 
 bool visTree(const std::vector<std::string>& i_lines, const int n, const int i) {
   int high = i_lines[n][i];
@@ -135,11 +134,10 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
   vector<string> lines;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", lines, lambda);
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
   
   cout << endl << "Result1: " << result1(lines);
   cout << endl << "Result1: " << result2(lines);

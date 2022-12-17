@@ -10,8 +10,6 @@
 #include <set>
 #include <map>
 
-#include "NobisTools.h" 
-
 std::set<std::pair<int, int>> posT;
 std::vector< std::pair<int, int>> knots;
 
@@ -121,11 +119,10 @@ int main()
 {
   using namespace std;
 
-  auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
   vector<string> lines;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", lines, lambda);
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
 
   cout << endl << "Result1: " << result(lines, 2);
   cout << endl << "Result2: " << result(lines,10);
