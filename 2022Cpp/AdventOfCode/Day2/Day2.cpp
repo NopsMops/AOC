@@ -10,7 +10,6 @@
 #include <regex>
 #include <cassert>
 #include <map>
-#include "NobisTools.h" 
 
 std::map<char, std::string> mRPS{ {'X', "Rock"},{'A', "Rock"}, {'Y', "Paper"},{'B', "Paper"}, {'Z', "Scissor"},{'C', "Scissor"} };
 std::map<char, int> mPoint{ {'X', 1},{'Y', 2}, {'Z', 3}};
@@ -42,16 +41,14 @@ char winLoseDraw(const char& my, const char& opo) {
 int main() 
 {
   using namespace std;
+  vector<std::string> lines;
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
 
-    auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
-
-  vector<string> stratV;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", stratV, lambda);
   int totalScoreStrategy1 = 0;
   int totalScoreStrategy2 = 0;
-  for (auto i : stratV) {
+  for (auto i : lines) {
     totalScoreStrategy1 += calScore(mRPS.find(i.at(2))->second, mRPS.find(i.at(0))->second) + mPoint.find(i.at(2))->second;
     totalScoreStrategy2 += calScore(mRPS.find(winLoseDraw(i.at(2), i.at(0)))->second, mRPS.find(i.at(0))->second) +
                                     mPoint.find(winLoseDraw(i.at(2), i.at(0)))->second;

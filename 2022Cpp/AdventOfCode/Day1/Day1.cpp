@@ -9,8 +9,6 @@
 #include <regex>
 #include <cassert>
 
-#include "NobisTools.h" 
-
 std::vector<long long> sumUpCalorie(const std::vector<std::string> i_calV) {
   std::vector<long long> vec{ 0 };
   for (const auto i : i_calV) {
@@ -27,13 +25,12 @@ std::vector<long long> sumUpCalorie(const std::vector<std::string> i_calV) {
 int main()
 {
   using namespace std;
+  vector<std::string> lines;
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
 
-  auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
-  vector<string> calV;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", calV, lambda);
-  vector<long long> vec = sumUpCalorie(calV);
+  vector<long long> vec = sumUpCalorie(lines);
   sort(vec.rbegin(), vec.rend());
   cout << endl << "Result1: " << vec.front();
   cout << endl << "Result2: " << vec.at(0) + vec.at(1) + vec.at(2);

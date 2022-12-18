@@ -8,8 +8,6 @@
 #include <sstream>
 #include <vector>
 
-#include "NobisTools.h" 
-
 std::vector<std::vector<char>> buildCraneList(std::vector<std::string>& ccV) {
   std::vector<std::vector<char>> craneStack(ccV[0].size());
 
@@ -84,13 +82,11 @@ std::string result2(std::vector<std::string>& ccV) {
 int main()
 {
   using namespace std;
+  vector<std::string> lines;
+  string line;
+  ifstream in(R"(.\Input\PartAB.txt)");
+  while (getline(in, line)) lines.push_back(line);
 
-  auto lambda = [](const string& i_str, string& o_p) {
-    o_p = i_str;
-  };
-
-  vector<string> ccV;
-  nobistools::readAndSplitAllLines<string>(R"(.\Input\PartAB.txt)", ccV, lambda);
-  cout << endl << "Result 1: " << result1(ccV);
-  cout << endl << "Result 2: " << result2(ccV);
+  cout << endl << "Result 1: " << result1(lines);
+  cout << endl << "Result 2: " << result2(lines);
 }
